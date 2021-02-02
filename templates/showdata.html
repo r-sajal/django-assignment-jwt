@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title> Show me the data </title>
+        <style>
+            .mydiv {
+              background-color: lightblue;
+              text-align: center;
+              padding: 5%;
+            }
+        </style>
+    </head>
+        <body>
+            
+            {% for j,i in context.items %}
+            <div class="mydiv">
+                <h3>{{i.title}}</h3>
+                <!-- <p>{{i.id}}</p> -->
+                <p>{{i.body}}</p>
+                <p><b>By user- {{i.userId}}</b></p>
+            </div>
+            <br><br>
+            {% endfor %}
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    
+    <script> 
+        document.getElementsByTagName("body").style.visibility = "hidden";
+        $(document).ready(function(){
+            if (localStorage.getItem('currenttoken')!=null){
+                console.log(localStorage.getItem('currenttoken'))
+                console.log("-------------------------------di-------------------------------");
+                var err = null;
+                $.ajax({
+                    type:'POST',
+                    url:'/api-token-verify/',
+                    data:JSON.stringify({
+                        token:localStorage.getItem('currenttoken'),
+                    }),
+                    success:function(d){
+                        console.log("Successful");
+                    },
+                    error: function(e) {
+                        console.log(e);
+                        try{
+                            var temp_token = ((("{{token|escapejs}}")).toString());
+                            if(temp_token.length==223){
+                                localStorage.setItem('currenttoken',temp_token);
+                                document.getElementsByTagName("body").style.visibility = "visible";
+                            }
+                            else{
+                                 window.location.href = "http://127.0.0.1:8000/";
+                            }
+                        }
+                        catch{
+                            
+                             window.location.href = "http://127.0.0.1:8000/";
+                        }
+                        //window.location.href = "http://www.google.com";
+                    },
+                    dataType: "json",
+                    contentType: "application/json"
+                });
+    
+                console.log("-------------------------------di-------------------------------");
+            }
+            else{
+                try{
+                    var temp_token = (("{{token|escapejs}}")).toString();
+                    console.log(temp_token)
+                    if(temp_token.length==223){
+                        localStorage.setItem('currenttoken',temp_token);
+                        document.getElementsByTagName("body").style.visibility = "visible";
+                    }
+                    else{
+                        console.log(temp_token.length)
+                         window.location.href = "http://127.0.0.1:8000/";
+
+                    }
+                }
+                catch{
+                    window.location.href = "http://127.0.0.1:8000/";
+                    // var temp_token = (("{{token|escapejs}}")).toString();
+                    // console.log(temp_token)
+                }
+            }
+    
+        });    
+    </script>
+        </body>
+    
+</html>
