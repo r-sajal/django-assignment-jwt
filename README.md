@@ -15,3 +15,9 @@ Start by --> <br>
 <b>users/</b> --> main app <br>
 <b>views</b> --> main login <br>
 <b>urls </b> --> setting the path /  mapping <br>
+
+## Api used for data --> https://jsonplaceholder.typicode.com/posts <br>
+
+<b>To obtain token </b> --> 127.0.0.0000:8000/api-token-auth/ <br>
+<b>To refresh token</b> --> 127.0.0.0000:8000/api-token-refresh/ <br>
+<b>To verify </b> --> 127.0.0.0000:8000/api-token-verify/ <br>
