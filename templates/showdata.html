@@ -75,8 +75,13 @@
                     var temp_token = (("{{token|escapejs}}")).toString();
                     console.log(temp_token)
                     
-                    localStorage.setItem('currenttoken',temp_token);
-                    x.style.display = "block";
+                    if(temp_token.length>10){
+                        localStorage.setItem('currenttoken',temp_token);
+                        x.style.display = "block";
+                    }
+                    else{
+                        window.location.href = "http://127.0.0.1:8000/";
+                    }
                     
                     
                 }
