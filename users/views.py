@@ -80,12 +80,12 @@ def loginrequest(request):
     try:
         if(request.method == "POST"):
 
-            email = request.POST['username']
+            username = request.POST['username']
             password = request.POST['password']
-            user = authenticate(username=email,password=password)
+            user = authenticate(username=username,password=password)
             
             if user is not None:
-                r = requests.post('http://127.0.0.1:8000/api-token-auth/', data={'username':'sajal','password':'sajal'})    
+                r = requests.post('http://127.0.0.1:8000/api-token-auth/', data={'username':username,'password':password})    
                 r = json.loads(r.text)
                 params = {'token':r['token']}
                 print(params)

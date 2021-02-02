@@ -2,6 +2,9 @@
     <head>
         <title> Show me the data </title>
         <style>
+            #togglediv{
+                width: auto;
+            }
             .mydiv {
               background-color: lightblue;
               text-align: center;
@@ -10,7 +13,8 @@
         </style>
     </head>
         <body>
-            
+
+            <div id="togglediv">
             {% for j,i in context.items %}
             <div class="mydiv">
                 <h3>{{i.title}}</h3>
@@ -21,11 +25,13 @@
             <br><br>
             {% endfor %}
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+            </div>
 
-    
     <script> 
-        document.getElementsByTagName("body").style.visibility = "hidden";
+        var x = document.getElementById("togglediv");
         $(document).ready(function(){
+            
+            x.style.display = "none";
             if (localStorage.getItem('currenttoken')!=null){
                 console.log(localStorage.getItem('currenttoken'))
                 console.log("-------------------------------di-------------------------------");
@@ -38,6 +44,7 @@
                     }),
                     success:function(d){
                         console.log("Successful");
+                        x.style.display = "block";x.style.display = "block";
                     },
                     error: function(e) {
                         console.log(e);
@@ -45,7 +52,7 @@
                             var temp_token = ((("{{token|escapejs}}")).toString());
                             if(temp_token.length==223){
                                 localStorage.setItem('currenttoken',temp_token);
-                                document.getElementsByTagName("body").style.visibility = "visible";
+                                x.style.display = "block";
                             }
                             else{
                                  window.location.href = "http://127.0.0.1:8000/";
@@ -67,15 +74,11 @@
                 try{
                     var temp_token = (("{{token|escapejs}}")).toString();
                     console.log(temp_token)
-                    if(temp_token.length==223){
-                        localStorage.setItem('currenttoken',temp_token);
-                        document.getElementsByTagName("body").style.visibility = "visible";
-                    }
-                    else{
-                        console.log(temp_token.length)
-                         window.location.href = "http://127.0.0.1:8000/";
-
-                    }
+                    
+                    localStorage.setItem('currenttoken',temp_token);
+                    x.style.display = "block";
+                    
+                    
                 }
                 catch{
                     window.location.href = "http://127.0.0.1:8000/";
